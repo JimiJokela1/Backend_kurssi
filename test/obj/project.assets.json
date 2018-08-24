@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Koulu\\Servut\\Viikko1\\test\\test.csproj",
+      "projectUniqueName": "c:\\Koulu\\Servut\\Backend_kurssi\\test\\test.csproj",
       "projectName": "test",
-      "projectPath": "C:\\Koulu\\Servut\\Viikko1\\test\\test.csproj",
+      "projectPath": "c:\\Koulu\\Servut\\Backend_kurssi\\test\\test.csproj",
       "packagesPath": "C:\\Users\\Jimi\\.nuget\\packages\\",
-      "outputPath": "C:\\Koulu\\Servut\\Viikko1\\test\\obj\\",
+      "outputPath": "c:\\Koulu\\Servut\\Backend_kurssi\\test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

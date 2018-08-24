@@ -3238,11 +3238,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Koulu\\Servut\\Viikko1\\Assignment1\\Assignment1.csproj",
+      "projectUniqueName": "c:\\Koulu\\Servut\\Backend_kurssi\\Assignment1\\Assignment1.csproj",
       "projectName": "Assignment1",
-      "projectPath": "C:\\Koulu\\Servut\\Viikko1\\Assignment1\\Assignment1.csproj",
+      "projectPath": "c:\\Koulu\\Servut\\Backend_kurssi\\Assignment1\\Assignment1.csproj",
       "packagesPath": "C:\\Users\\Jimi\\.nuget\\packages\\",
-      "outputPath": "C:\\Koulu\\Servut\\Viikko1\\Assignment1\\obj\\",
+      "outputPath": "c:\\Koulu\\Servut\\Backend_kurssi\\Assignment1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
