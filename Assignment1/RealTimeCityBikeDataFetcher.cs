@@ -39,12 +39,13 @@ namespace Assignment1 {
                 }
 
                 return bikes;
-            }
-            catch (ArgumentException ex) {
+            } catch (ArgumentException ex) {
                 Console.WriteLine("Invalid argument: " + ex.Message);
                 return 0;
-            }
-            catch (NotFoundException ex) {
+            } catch (NotFoundException ex) {
+                Console.WriteLine(ex.Message);
+                return 0;
+            } catch (Exception ex) {
                 Console.WriteLine(ex.Message);
                 return 0;
             }

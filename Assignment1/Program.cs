@@ -5,6 +5,7 @@ namespace Assignment1 {
     class Program {
         static void Main(string[] args) {
             bool realtime = true;
+            
             if (args.Length >= 2) {
                 if (args[1] == "realtime") {
                     realtime = true;
