@@ -11,12 +11,15 @@ namespace web_api
 
         public async Task<Player> Create(Player player)
         {
+            await Task.CompletedTask;
             players.Add(player);
             return player;
         }
 
         public async Task<Player> Delete(Guid id)
         {
+            await Task.CompletedTask;
+
             Player found = GetPlayerById(id);
 
             if (found != null)
@@ -32,16 +35,19 @@ namespace web_api
 
         public async Task<Player> Get(Guid id)
         {
+            await Task.CompletedTask;
             return GetPlayerById(id);
         }
 
         public async Task<Player[]> GetAll()
         {
+            await Task.CompletedTask;
             return players.ToArray();
         }
 
         public async Task<Player> Modify(Guid id, ModifiedPlayer player)
         {
+            await Task.CompletedTask;
             Player found = GetPlayerById(id);
             if (found != null)
             {

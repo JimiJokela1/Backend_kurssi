@@ -1,10 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace web_api
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class PlayersController
     {
         PlayersProcessor _processor;
@@ -14,34 +15,42 @@ namespace web_api
             _processor = processor;
         }
 
-        [Route("api/players/{id:Guid}")]
-        [HttpGet]
+        [HttpGet("{id:Guid}")]
         public Task<Player> Get(Guid id)
         {
             return _processor.Get(id);
         }
 
-        [Route("api/players")]
         [HttpGet]
         public Task<Player[]> GetAll()
         {
             return _processor.GetAll();
         }
 
-        [Route("api/players")]
         [HttpPost]
-        public Task<Player> Create(NewPlayer player)
+        public Task<Player> Create([FromBody] NewPlayer player)
         {
             return _processor.Create(player);
         }
 
-        [Route("api/players")]
-        [HttpPost]
-        public Task<Player> Create([FromBody] string playerJson)
+        [HttpPut("{id:Guid}")]
+        public Task<Player> Modify(Guid id, [FromBody] ModifiedPlayer player)
         {
-            NewPlayer player = JsonConvert.DeserializeObject<NewPlayer>(playerJson);
-            return _processor.Create(player);
+            return _processor.Modify(id, player);
         }
+
+        [HttpDelete("{id:Guid}")]
+        public Task<Player> Delete(Guid id)
+        {
+            return _processor.Delete(id);
+        }
+
+        // [Route("api/players")]
+        // [HttpPost]
+        // public Task<Player> Create(NewPlayer player)
+        // {
+        //     return _processor.Create(player);
+        // }
 
         // [Route("api/players/{playerName}")]
         // [HttpPost]
@@ -59,18 +68,13 @@ namespace web_api
         //     return _processor.Create(player);
         // }
 
-        [Route("api/players")]
-        [HttpPut]
-        public Task<Player> Modify(Guid id, ModifiedPlayer player)
-        {
-            return _processor.Modify(id, player);
-        }
+        // [Route("api/players")]
+        // [HttpPut]
+        // public Task<Player> Modify(Guid id, ModifiedPlayer player)
+        // {
+        //     return _processor.Modify(id, player);
+        // }
 
-        [Route("api/players")]
-        [HttpDelete]
-        public Task<Player> Delete(Guid id)
-        {
-            return _processor.Delete(id);
-        }
+        
     }
 }

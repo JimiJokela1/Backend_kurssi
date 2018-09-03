@@ -27,7 +27,9 @@ namespace web_api
         {
             Player newPlayer = new Player();
             newPlayer.Name = player.Name;
+            // set other values for new player
             newPlayer.Id = Guid.NewGuid();
+            newPlayer.CreationTime = System.DateTime.Now;
 
             return _repository.Create(newPlayer);
         }
