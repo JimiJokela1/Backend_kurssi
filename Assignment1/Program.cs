@@ -1,18 +1,27 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Assignment1 {
-    class Program {
-        static void Main(string[] args) {
+namespace Assignment1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
             bool realtime = true;
-            
-            if (args.Length >= 2) {
-                if (args[1] == "realtime") {
+
+            if (args.Length >= 2)
+            {
+                if (args[1] == "realtime")
+                {
                     realtime = true;
-                } else if (args[1] == "offline") {
+                }
+                else if (args[1] == "offline")
+                {
                     realtime = false;
                 }
-            } else if (args.Length == 0) {
+            }
+            else if (args.Length == 0)
+            {
                 return;
             }
 
@@ -23,9 +32,12 @@ namespace Assignment1 {
 
             ICityBikeDataFetcher fetcher;
 
-            if (realtime) {
+            if (realtime)
+            {
                 fetcher = new RealTimeCityBikeDataFetcher();
-            } else {
+            }
+            else
+            {
                 fetcher = new OfflineCityBikeDataFetcher();
             }
 
