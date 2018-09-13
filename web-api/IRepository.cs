@@ -11,10 +11,10 @@ namespace web_api
         Task<Player> Modify(Guid id, ModifiedPlayer player);
         Task<Player> Delete(Guid id);
 
-        Task<Item> GetItem(Guid id);
-        Task<Item[]> GetAllItems();
-        Task<Item> CreateItem(Item item);
-        Task<Item> ModifyItem(Guid id, ModifiedItem item);
-        Task<Item> DeleteItem(Guid id);
+        Task<Item> GetItem(Guid playerId, Guid itemId);
+        Task<Item[]> GetAllItems(Guid playerId);
+        Task<Item> CreateItem(Guid playerId, Item item);
+        Task<Item> ModifyItem(Guid playerId, Guid itemId, ModifiedItem item);
+        Task<Item> DeleteItem(Guid playerId, Guid itemId);
     }
 }

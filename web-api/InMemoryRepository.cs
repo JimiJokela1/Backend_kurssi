@@ -8,7 +8,6 @@ namespace web_api
     public class InMemoryRepository : IRepository
     {
         private List<Player> players = new List<Player>();
-        private List<Item> items = new List<Item>();
 
         public async Task<Player> Create(Player player)
         {
@@ -52,7 +51,7 @@ namespace web_api
             Player found = GetPlayerById(id);
             if (found != null)
             {
-                found.Score = player.Score;
+                found.Modify(player);
             }
             return found;
         }
@@ -70,55 +69,84 @@ namespace web_api
             return null;
         }
 
-        public async Task<Item> CreateItem(Item item)
+        public async Task<Item> CreateItem(Guid playerId, Item item)
         {
             await Task.CompletedTask;
-            items.Add(item);
-            return item;
-        }
-
-        public async Task<Item[]> GetAllItems()
-        {
-            await Task.CompletedTask;
-            return items.ToArray();
-        }
-
-        public async Task<Item> GetItem(Guid id)
-        {
-            await Task.CompletedTask;
-            return GetItemById(id);
-        }
-
-        public async Task<Item> ModifyItem(Guid id, ModifiedItem item)
-        {
-            await Task.CompletedTask;
-            Item found = GetItemById(id);
-
-            return found;
-        }
-
-        public async Task<Item> DeleteItem(Guid id)
-        {
-            await Task.CompletedTask;
-
-            Item found = GetItemById(id);
-
-            if (found != null)
-            {
-                items.Remove(found);
-                return found;
-            }
-            else
+            Player player = GetPlayerById(playerId);
+            if (player == null)
             {
                 return null;
             }
+
+            player.items.Add(item);
+            return item;
         }
 
-        private Item GetItemById(Guid id)
+        public async Task<Item[]> GetAllItems(Guid playerId)
         {
-            foreach (Item item in items)
+            await Task.CompletedTask;
+            Player player = GetPlayerById(playerId);
+            if (player == null)
             {
-                if (item.Id == id)
+                return null;
+            }
+
+            return player.items.ToArray();
+        }
+
+        public async Task<Item> GetItem(Guid playerId, Guid itemId)
+        {
+            await Task.CompletedTask;
+            Player player = GetPlayerById(playerId);
+            if (player == null)
+            {
+                return null;
+            }
+
+            return GetItemById(player, itemId);
+        }
+
+        public async Task<Item> ModifyItem(Guid playerId, Guid itemId, ModifiedItem item)
+        {
+            await Task.CompletedTask;
+            Player player = GetPlayerById(playerId);
+            if (player == null)
+            {
+                return null;
+            }
+
+            Item found = GetItemById(player, itemId);
+
+            if (found != null)
+            {
+                found.Modify(item);
+            }
+            return found;
+        }
+
+        public async Task<Item> DeleteItem(Guid playerId, Guid itemId)
+        {
+            await Task.CompletedTask;
+            Player player = GetPlayerById(playerId);
+            if (player == null)
+            {
+                return null;
+            }
+
+            Item found = GetItemById(player, itemId);
+
+            if (found != null)
+            {
+                player.items.Remove(found);
+            }
+            return found;
+        }
+
+        private Item GetItemById(Player player, Guid itemId)
+        {
+            foreach (Item item in player.items)
+            {
+                if (item.Id == itemId)
                 {
                     return item;
                 }

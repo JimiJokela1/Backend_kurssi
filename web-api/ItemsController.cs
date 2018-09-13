@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace web_api
 {
-    [Route("api/players/{id:Guid}/items")]
+    [Route("api/players/{playerId:Guid}/[controller]")]
     public class ItemsController
     {
         ItemsProcessor _processor;
@@ -13,29 +13,34 @@ namespace web_api
             _processor = processor;
         }
 
-        public Task<Item> CreateItem(NewItem item)
+        [HttpPost]
+        public Task<Item> CreateItem(Guid playerId, [FromBody] NewItem item)
         {
-            return _processor.CreateItem(item);
+            return _processor.CreateItem(playerId, item);
         }
 
-        public Task<Item[]> GetAllItems()
+        [HttpGet]
+        public Task<Item[]> GetAllItems(Guid playerId)
         {
-            return _processor.GetAllItems();
+            return _processor.GetAllItems(playerId);
         }
 
-        public Task<Item> GetItem(Guid id)
+        [HttpGet("{itemId:Guid}")]
+        public Task<Item> GetItem(Guid playerId, Guid itemId)
         {
-            return _processor.GetItem(id);
+            return _processor.GetItem(playerId, itemId);
         }
 
-        public Task<Item> ModifyItem(Guid id, ModifiedItem item)
+        [HttpPut("{itemId:Guid}")]
+        public Task<Item> ModifyItem(Guid playerId, Guid itemId, [FromBody] ModifiedItem item)
         {
-            return _processor.ModifyItem(id, item);
+            return _processor.ModifyItem(playerId, itemId, item);
         }
 
-        public Task<Item> DeleteItem(Guid id)
+        [HttpDelete("{itemId:Guid}")]
+        public Task<Item> DeleteItem(Guid playerId, Guid itemId)
         {
-            return _processor.DeleteItem(id);
+            return _processor.DeleteItem(playerId, itemId);
         }
     }
 }
