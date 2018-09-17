@@ -14,6 +14,8 @@ namespace web_api
         }
 
         [HttpPost]
+        [LowLevelPlayerExceptionFilter]
+        [ValidateModel]
         public Task<Item> CreateItem(Guid playerId, [FromBody] NewItem item)
         {
             return _processor.CreateItem(playerId, item);

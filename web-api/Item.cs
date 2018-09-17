@@ -11,15 +11,27 @@ namespace web_api
             Axe,
             Shield
         }
+
         public Guid Id { get; set; }
+
+        [EnumDataType(typeof(ItemType), ErrorMessage = "Invalid ItemType")]
         public ItemType Type { get; set; }
-        public int Price { get; set; }
+
+        [Range(1, 99)]
+        public int Level { get; set; }
+
         [DateValidation]
         public DateTime CreationDate { get; set; }
 
         public void Modify(ModifiedItem item)
         {
-            Price = item.Price;
+            Level = item.Level;
+        }
+
+        public void Modify(NewItem item)
+        {
+            Level = item.Level;
+            Type = item.Type;
         }
     }
 }

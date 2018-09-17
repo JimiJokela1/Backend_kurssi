@@ -14,26 +14,19 @@ namespace web_api
 
         public async Task<Item> CreateItem(Guid playerId, NewItem item)
         {
-            try
-            {
-                Item newItem = new Item();
-                newItem.Id = Guid.NewGuid();
-                newItem.CreationDate = System.DateTime.Now;
-                newItem.Type = item.Type;
-                newItem.Price = item.Price;
+            Item newItem = new Item();
+            newItem.Modify(item);
+            newItem.Id = Guid.NewGuid();
+            newItem.CreationDate = System.DateTime.Now;
 
-                Player player = await _repository.Get(playerId);
-                if (newItem.Type == Item.ItemType.Sword && player.Level < 3) {
-                    throw new LowLevelPlayerException("Player too low level for sword!");
-                }
-
-                return await _repository.CreateItem(playerId, newItem);
-            }
-            catch (LowLevelPlayerException ex)
+            Player player = await _repository.Get(playerId);
+            
+            if (newItem.Type == Item.ItemType.Sword && player.Level < 3)
             {
-                Console.WriteLine(ex.Message);
-                return null;
+                throw new LowLevelPlayerException("Player too low level for sword!");
             }
+
+            return await _repository.CreateItem(playerId, newItem);
         }
 
         public Task<Item[]> GetAllItems(Guid playerId)

@@ -29,6 +29,11 @@ namespace web_api
 
             services.AddSingleton<IRepository, InMemoryRepository>();
             services.AddSingleton<PlayersProcessor>();
+            services.AddSingleton<ItemsProcessor>();
+
+            services.AddMvc(options => {
+                options.Filters.Add(new LowLevelPlayerExceptionFilterAttribute()); // custom filter - applies to all controllers and their actions
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
