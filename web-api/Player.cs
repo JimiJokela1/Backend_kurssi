@@ -8,7 +8,7 @@ namespace web_api
     {
         public Player()
         {
-            items = new List<Item>();
+            Items = new List<Item>();
         }
 
         public Guid Id { get; set; }
@@ -19,7 +19,7 @@ namespace web_api
         public bool IsBanned { get; set; }
         [DateValidation]
         public DateTime CreationTime { get; set; }
-        public List<Item> items { get; set; }
+        public List<Item> Items { get; set; }
 
         public void Modify(ModifiedPlayer player) {
             Score = player.Score;

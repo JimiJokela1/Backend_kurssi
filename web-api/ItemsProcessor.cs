@@ -19,7 +19,7 @@ namespace web_api
             newItem.Id = Guid.NewGuid();
             newItem.CreationDate = System.DateTime.Now;
 
-            Player player = await _repository.Get(playerId);
+            Player player = await _repository.GetPlayer(playerId);
             
             if (newItem.Type == Item.ItemType.Sword && player.Level < 3)
             {

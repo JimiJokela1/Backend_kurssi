@@ -9,14 +9,14 @@ namespace web_api
     {
         private List<Player> players = new List<Player>();
 
-        public async Task<Player> Create(Player player)
+        public async Task<Player> CreatePlayer(Player player)
         {
             await Task.CompletedTask;
             players.Add(player);
             return player;
         }
 
-        public async Task<Player> Delete(Guid id)
+        public async Task<Player> DeletePlayer(Guid id)
         {
             await Task.CompletedTask;
 
@@ -33,19 +33,19 @@ namespace web_api
             }
         }
 
-        public async Task<Player> Get(Guid id)
+        public async Task<Player> GetPlayer(Guid id)
         {
             await Task.CompletedTask;
             return GetPlayerById(id);
         }
 
-        public async Task<Player[]> GetAll()
+        public async Task<Player[]> GetAllPlayers()
         {
             await Task.CompletedTask;
             return players.ToArray();
         }
 
-        public async Task<Player> Modify(Guid id, ModifiedPlayer player)
+        public async Task<Player> ModifyPlayer(Guid id, ModifiedPlayer player)
         {
             await Task.CompletedTask;
             Player found = GetPlayerById(id);
@@ -78,7 +78,7 @@ namespace web_api
                 return null;
             }
 
-            player.items.Add(item);
+            player.Items.Add(item);
             return item;
         }
 
@@ -91,7 +91,7 @@ namespace web_api
                 return null;
             }
 
-            return player.items.ToArray();
+            return player.Items.ToArray();
         }
 
         public async Task<Item> GetItem(Guid playerId, Guid itemId)
@@ -137,14 +137,14 @@ namespace web_api
 
             if (found != null)
             {
-                player.items.Remove(found);
+                player.Items.Remove(found);
             }
             return found;
         }
 
         private Item GetItemById(Player player, Guid itemId)
         {
-            foreach (Item item in player.items)
+            foreach (Item item in player.Items)
             {
                 if (item.Id == itemId)
                 {
