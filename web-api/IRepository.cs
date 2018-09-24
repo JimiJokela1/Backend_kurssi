@@ -16,5 +16,11 @@ namespace web_api
         Task<Item> CreateItem(Guid playerId, Item item);
         Task<Item> ModifyItem(Guid playerId, Guid itemId, ModifiedItem item);
         Task<Item> DeleteItem(Guid playerId, Guid itemId);
+
+        // Assignment 5 stuff
+        Task<Player[]> MoreThanXScore(int x);
+        Task<Player> GetPlayerWithName(string name);
+        Task<Player[]> GetPlayersWithItemType(Item.ItemType itemType);
+        Task<int> GetLevelsWithMostPlayers();
     }
 }

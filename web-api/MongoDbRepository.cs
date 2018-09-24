@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -118,6 +119,43 @@ namespace web_api
             await _collection.UpdateOneAsync(filter, pull);
 
             return item;
+        }
+
+        public async Task<Player[]> MoreThanXScore(int x)
+        {
+            var filter = Builders<Player>.Filter.Gte("Score", x);
+            var players = await _collection.Find(filter).ToListAsync();
+            return players.ToArray();
+        }
+
+        public async Task<Player> GetPlayerWithName(string name)
+        {
+            var filter = Builders<Player>.Filter.Eq("Name", name);
+            return await _collection.Find(filter).FirstAsync();
+        }
+
+        public async Task<Player[]> GetPlayersWithItemType(Item.ItemType itemType)
+        {
+            var filter = Builders<Player>.Filter.Eq("Items.Type", itemType);
+            var players = await _collection.Find(filter).ToListAsync();
+            return players.ToArray();
+        }
+
+        public async Task<int> GetLevelsWithMostPlayers()
+        {
+            var aggregate = Builders<Player>.Projection.Include("Level");
+            var result = await _collection.Aggregate()
+                        .Project(x => new {level = x.Level})
+                        .Group(
+                            x => x.level,
+                            x => new {level = x.Key, count = x.Sum(y => 1)}
+
+                        )
+                        .SortByDescending(x => x.count)
+                        .Limit(3)
+                        .ToListAsync();
+
+            return result[0].level;
         }
     }
 }

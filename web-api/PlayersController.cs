@@ -21,12 +21,6 @@ namespace web_api
             return _processor.Get(id);
         }
 
-        [HttpGet]
-        public Task<Player[]> GetAll()
-        {
-            return _processor.GetAll();
-        }
-
         [HttpPost]
         public Task<Player> Create([FromBody] NewPlayer player)
         {
@@ -43,6 +37,32 @@ namespace web_api
         public Task<Player> Delete(Guid id)
         {
             return _processor.Delete(id);
+        }
+
+        // Assignment 5
+
+        [HttpGet("{name}")]
+        public Task<Player> GetPlayerWithName(string name)
+        {
+            return _processor.GetPlayerWithName(name);
+        }
+
+        [HttpGet]
+        public Task<Player[]> GetSomething(int? minScore, Item.ItemType? itemType)
+        {
+            if (minScore != null) {
+                return _processor.MoreThanXScore((int)minScore);
+            } else if (itemType != null) {
+                return _processor.GetPlayersWithItemType((Item.ItemType)itemType);
+            } else {
+                return _processor.GetAll();
+            }
+        }
+
+        [HttpGet("LevelWithMostPlayers")]
+        public Task<int> GetLevelsWithMostPlayers() 
+        {
+            return _processor.GetLevelsWithMostPlayers();
         }
 
         // [Route("api/players")]
@@ -75,6 +95,5 @@ namespace web_api
         //     return _processor.Modify(id, player);
         // }
 
-        
     }
 }

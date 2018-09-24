@@ -50,6 +50,9 @@ namespace web_api
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseAuthMiddleware();
+            // AuthMiddleware.api_key = Configuration.GetValue<string>("api-key");
         }
     }
 }
