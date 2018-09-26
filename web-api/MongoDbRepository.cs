@@ -10,12 +10,14 @@ namespace web_api
     public class MongoDbRepository : IRepository
     {
         private readonly IMongoCollection<Player> _collection;
+        private readonly IMongoCollection<string> _logCollection;
 
         public MongoDbRepository()
         {
             var mongoClient = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase database = mongoClient.GetDatabase("game");
             _collection = database.GetCollection<Player>("players");
+            _logCollection = database.GetCollection<string>("log");
         }
 
         public async Task<Player> CreatePlayer(Player player)
@@ -156,6 +158,12 @@ namespace web_api
                         .ToListAsync();
 
             return result[0].level;
+        }
+
+        public async Task WriteToLog(string logEntry)
+        {
+            await _logCollection.InsertOneAsync(logEntry);
+            return;
         }
     }
 }

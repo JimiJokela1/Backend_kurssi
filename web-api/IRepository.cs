@@ -22,5 +22,8 @@ namespace web_api
         Task<Player> GetPlayerWithName(string name);
         Task<Player[]> GetPlayersWithItemType(Item.ItemType itemType);
         Task<int> GetLevelsWithMostPlayers();
+
+        // Assignment 6
+        Task WriteToLog(string logEntry);
     }
 }

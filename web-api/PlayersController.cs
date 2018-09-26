@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace web_api
@@ -33,7 +34,9 @@ namespace web_api
             return _processor.Modify(id, player);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:Guid}")]
+        [UserActionAuditActionFilter]
         public Task<Player> Delete(Guid id)
         {
             return _processor.Delete(id);

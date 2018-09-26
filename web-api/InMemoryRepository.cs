@@ -202,5 +202,10 @@ namespace web_api
         {
             throw new NotImplementedException();
         }
+
+        public Task WriteToLog(string logEntry)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
