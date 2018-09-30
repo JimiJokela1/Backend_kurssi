@@ -24,6 +24,7 @@ namespace web_api
         Task<int> GetLevelsWithMostPlayers();
 
         // Assignment 6
-        Task WriteToLog(string logEntry);
+        Task WriteToLog(LogEntry logEntry);
+        Task<LogEntry[]> GetLog();
     }
 }

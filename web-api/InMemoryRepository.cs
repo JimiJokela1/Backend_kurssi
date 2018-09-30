@@ -203,7 +203,12 @@ namespace web_api
             throw new NotImplementedException();
         }
 
-        public Task WriteToLog(string logEntry)
+        public Task WriteToLog(LogEntry logEntry)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<LogEntry[]> GetLog()
         {
             throw new NotImplementedException();
         }

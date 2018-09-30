@@ -32,11 +32,14 @@ namespace web_api
             services.AddSingleton<IRepository, MongoDbRepository>();
             services.AddSingleton<PlayersProcessor>();
             services.AddSingleton<ItemsProcessor>();
+            services.AddSingleton<LogProcessor>();
             services.AddSingleton<ApiKey>(new ApiKey(Configuration.GetValue<string>("api-key"), Configuration.GetValue<string>("api-key-admin")));
+
 
             services.AddMvc(options =>
             {
                 options.Filters.Add(new LowLevelPlayerExceptionFilterAttribute()); // custom filter - applies to all controllers and their actions
+                // options.Filters.Add(new UserActionAuditActionFilterAttribute());
             });
 
 

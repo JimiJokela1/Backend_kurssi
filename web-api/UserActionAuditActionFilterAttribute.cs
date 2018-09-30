@@ -10,14 +10,19 @@ namespace web_api
         {
             // A request from ip address {insertIpHere} to delete player ended at 9:30:36 12.10 2018
 
-            if (!context.Canceled && context.Exception != null)
+            if (!context.Canceled)
             {
                 IRepository _repository = (IRepository) context.HttpContext.RequestServices.GetService(typeof(IRepository));
 
                 string ip = context.HttpContext.Request.Host.Value;
                 DateTime currentTime = DateTime.Now;
 
-                _repository.WriteToLog("A request from ip address " + ip + " to delete player ended at " + currentTime.ToString());
+                LogEntry entry = new LogEntry();
+                entry.CreationTime = currentTime;
+                entry.Message = "A request from ip address " + ip + " to delete player ended at " + currentTime.ToString();
+                entry.Id = Guid.NewGuid();
+
+                _repository.WriteToLog(entry);
             }
         }
 
@@ -30,7 +35,12 @@ namespace web_api
             string ip = context.HttpContext.Request.Host.Value; // ServerVariables["HTTP_X_FORWARDED_FOR"];
             DateTime currentTime = DateTime.Now;
 
-            _repository.WriteToLog("A request from ip address " + ip + " to delete player started at " + currentTime.ToString());
+            LogEntry entry = new LogEntry();
+            entry.CreationTime = currentTime;
+            entry.Message = "A request from ip address " + ip + " to delete player started at " + currentTime.ToString();
+            entry.Id = Guid.NewGuid();
+
+            _repository.WriteToLog(entry);
         }
     }
 }

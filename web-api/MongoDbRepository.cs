@@ -10,14 +10,14 @@ namespace web_api
     public class MongoDbRepository : IRepository
     {
         private readonly IMongoCollection<Player> _collection;
-        private readonly IMongoCollection<string> _logCollection;
+        private readonly IMongoCollection<LogEntry> _logCollection;
 
         public MongoDbRepository()
         {
             var mongoClient = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase database = mongoClient.GetDatabase("game");
             _collection = database.GetCollection<Player>("players");
-            _logCollection = database.GetCollection<string>("log");
+            _logCollection = database.GetCollection<LogEntry>("log");
         }
 
         public async Task<Player> CreatePlayer(Player player)
@@ -123,6 +123,8 @@ namespace web_api
             return item;
         }
 
+        // Assignment 5
+
         public async Task<Player[]> MoreThanXScore(int x)
         {
             var filter = Builders<Player>.Filter.Gte("Score", x);
@@ -160,10 +162,19 @@ namespace web_api
             return result[0].level;
         }
 
-        public async Task WriteToLog(string logEntry)
+        // Assignment 6
+
+        public async Task WriteToLog(LogEntry logEntry)
         {
             await _logCollection.InsertOneAsync(logEntry);
             return;
+        }
+
+        public async Task<LogEntry[]> GetLog()
+        {
+            var filter = Builders<LogEntry>.Filter.Empty;
+            List<LogEntry> logList = await _logCollection.Find(filter).ToListAsync();
+            return logList.ToArray();
         }
     }
 }
